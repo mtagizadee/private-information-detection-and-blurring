@@ -1,13 +1,13 @@
-# Private information detection and blurring on images
+# Private information detection and reporting on images
 
 **Authors**: Mahammad Taghizada, Ibrahim Samadzade
 **Date**: 17/03/2024
 
 # About
 
-The purpose of this project is to identify private text information on the images and blur them for privacy purposes. Souce code contains 3 main python files.
+The purpose of this project is to identify private text information on the images and report them for privacy purposes. Souce code contains 3 main python files.
 
-- main.ipynb - here the main logic of text extraction, pii detection and blurring is implemented.
+- main.ipynb - here the main logic of text extraction, pii detection and reporting is implemented.
 - model.ipynb - small supervised neural network to identify whether or not a text can be said to be private or not.
 - seeder.py - script to generate data for model training. It creates a csv file with two columns text and label where label identifies whether or not the text is private.
 
@@ -15,7 +15,7 @@ The purpose of this project is to identify private text information on the image
 
 - First you have to train your model and save it in the ml folder or whathever folder you want. Thus, if you do not have seeded training data, run seeder.py file.
 - When you have training data, run model.ipynb file to train and save your model in whatever folder you want. Ususally it is _ml_ folder.
-- Once the model is trained and saved, you can move on main.ipynb notebook. Load your image and blur there private information.
+- Once the model is trained and saved, you can move on main.ipynb notebook. Load your image and generate report there for private information.
 
 # About provided data
 

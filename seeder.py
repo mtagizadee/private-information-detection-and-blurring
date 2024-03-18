@@ -17,8 +17,8 @@ def main():
   non_pii = seed_non_pii(n)
   pii = seed_pii(m)
 
-  take_non_pii = 800
-  take_pii = 300
+  take_non_pii = 100
+  take_pii = 50
 
   non_pii = non_pii[:take_non_pii]
   pii = pii[:take_pii]
@@ -52,40 +52,42 @@ def seed_pii(n):
   pii = []
 
   for _ in range(n):
-    card = {
-      "card_number": fake.credit_card_number(card_type=None),
-      "security_code": "{:03d}".format(random.randint(0, 999)), 
-      "expiration_date": fake.credit_card_expire(start="now", end="+10y", date_format="%m/%y"),
-      "card_holder_name": fake.name(),
+    data = {
+        "email": custom_mail(),
+        "phone": fake.phone_number(),
+        "address": fake.address(),
+        "name": fake.name(),
+        "credit_card": fake.credit_card_number(card_type=None),
+        "driver_license": fake.license_plate(),  # Simulating as license plate due to Faker's limitations
+        "ssn": fake.ssn(),
+        "medical_record": f"MR{fake.random_number(digits=6, fix_len=True)}",
+        "health_insurance": f"HI{fake.random_number(digits=9, fix_len=True)}",
+        "bank_account": fake.bban(),
+        "vin": fake.bothify(text='?#??###?#?######', letters='ABCDEFGHJKLMNPRSTUVWXYZ'),  # Custom VIN-like pattern
+        "license_plate": fake.license_plate()
     }
 
-    personal = {
-      "address": fake.address(),
-      "email": fake.email(),
-      "phone_number": fake.phone_number(),
-      "personal_id": fake.ssn(), 
-      "passport_number": fake.bothify(text="????######", letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
-      "date_of_birth": fake.date_of_birth(minimum_age=18, maximum_age=90).isoformat(),
-      "nationality": fake.country(),
-      "date": fake.future_date(end_date="+10y", tzinfo=None).isoformat(), 
-    }
-
-    pii.append(personal["full_name"])
-    pii.append(personal["address"])
-    pii.append(personal["email"])
-    pii.append(personal["phone_number"])
-    pii.append(personal["personal_id"])
-    pii.append(personal["passport_number"])
-    pii.append(personal["date_of_birth"])
-    pii.append(personal["nationality"])
-    pii.append(personal["date"])
-
-    pii.append(card["card_number"])
-    pii.append(card["security_code"])
-    pii.append(card["expiration_date"])
-    pii.append(card["card_holder_name"])
+    pii.append(data["email"])
+    pii.append(data["phone"])
+    pii.append(data["address"])
+    pii.append(data["name"])
+    pii.append(data["credit_card"])
+    pii.append(data["driver_license"])
+    pii.append(data["ssn"])
+    pii.append(data["medical_record"])
+    pii.append(data["health_insurance"])
+    pii.append(data["bank_account"])
+    pii.append(data["vin"])
+    pii.append(data["license_plate"])
+    
 
   return pii
+
+def custom_mail():
+  username = fake.user_name()
+  domains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "aol.com"]
+
+  return f"{username}@{random.choice(domains)}"
 
 if __name__ == "__main__":
   main()
